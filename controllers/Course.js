@@ -100,7 +100,7 @@ exports.createCourse = async(req,res) =>{
 
 // Get All courses
 
-exports.showAllCourses = async(req,res) =>{
+exports.getAllCourses = async(req,res) =>{
     try {
         const allCourses = await Course.find({},{
         }).populate("instructor").exec();
@@ -125,5 +125,51 @@ exports.showAllCourses = async(req,res) =>{
             success:false,
             message:"Error in Get All Courses"
         })
+    }
+}
+
+// Get Course Details
+exports.getCourseDetails = async(req,res) =>{
+    try {
+        const {courseId} = req.body;
+
+        const courseDetails = await Course.find(
+            {_id : courseId}.populate(
+                {
+                    path:"instructor",
+                    populate:{
+                        path:"additionalDetails",
+                    },
+                }
+            )
+            .populate("Category")
+            .populate("ratingAndReviews")
+            .populate(
+                {
+                    path:"courseContent",
+                    populate:{
+                        path:"subSection",
+                    },
+                }
+            )
+        ).exec();
+
+        // Validation
+
+        if(!courseDetails){
+            return res.status(400).json({
+                success:false,
+                message:"Could not find the Course with given courseId"
+            })
+        }
+        return res.status(200).json({
+            success:true,
+            message:"Course Details fetched Successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Error in Get Course Details"
+        }) 
     }
 }
