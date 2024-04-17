@@ -1,5 +1,5 @@
 const Course = require("../models/Course")
-const Tag = require("../models/Tags")
+const Category = require("../models/Category")
 const User = require("../models/User")
 const {uploadImageCloudinary} = require("../utils/imageUploader")
 
@@ -9,14 +9,14 @@ exports.createCourse = async(req,res) =>{
     try {
         // Fetch data
         const {courseName , courseDescription 
-        ,whatYouWillLearn, price , tag} = req.body;
+        ,whatYouWillLearn, price , Category} = req.body;
 
         // Get Thumbnail
         const thumbnail = req.files.thumbnailImage;
 
         // Validation 
         if(!courseName || !courseDescription || !whatYouWillLearn 
-        || !price || !tag){
+        || !price || !Category){
             return res.status(400).json({
                 success:false,
                 message:"Fill All Fields"

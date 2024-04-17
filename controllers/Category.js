@@ -1,4 +1,5 @@
-const Tag = require("../models//Category")
+const Category = require("../models/Category");
+const Tag = require("../models/Category")
 
 // Create Tag ka handler functions
 
@@ -40,7 +41,7 @@ exports.createCategory = async(req,res) =>{
 
 // GetAll Tags 
 
-exports.showAllCategory = async(req,res) =>{
+exports.showAllCategories = async(req,res) =>{
     try {
         const allTags = await Tag.find({},{
             name:true,desciption:true
@@ -60,6 +61,44 @@ exports.showAllCategory = async(req,res) =>{
 }
 
 // Category PageDetails
-exports.categoryPagedetails = async(req,res) =>{
-    
+exports.categoryPageDetails = async(req,res) =>{
+    try {
+        // get categoryId
+        const {categoryId} = req.body;
+        // Get courses for specified category
+        const selectedCategory = await Category.findById(categoryId)
+        .populate("courses")
+        .exec();
+        // Validation
+        if(!selectedCategory){
+            return res.status(404).json({
+                success:false,
+                message:"Course Not Available"
+            })
+        }
+
+        // get Courses for diffent categories
+        const differentCategories = await Category.find(
+            {
+                _id:{$ne: categoryId},
+            }
+        ).populate("course")
+        .exec();
+        // Get top selling courses
+
+        // return response
+        return res.status(200).json({
+            success:true,
+            data:{
+                selectedCategory,
+                differentCategories,
+            },
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success:false,
+            message:"Error in Category Page Details"
+        })
+    }
 }
