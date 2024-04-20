@@ -4,7 +4,6 @@ const Profile = require("../models/Profile")
 const otpGenerator = require("otp-generator")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-require("dotenv").config();
 // send OTP 
 
 exports.sendOTP = async(req,res) =>{
@@ -28,8 +27,6 @@ exports.sendOTP = async(req,res) =>{
             specialChars:false,
         });
 
-        console.log("otp :",otp);
-
         // chect for unique
         let result = await OTP.findOne({otp : otp});
 
@@ -50,10 +47,10 @@ exports.sendOTP = async(req,res) =>{
 
         // Response
 
-        res.status(200).json({
+        return res.status(200).json({
             success:true,
             message:"OTP Sent Successfully",
-            // otpBody,
+            otp,
         })
 
 
@@ -81,7 +78,7 @@ exports.signUp = async(req,res) => {
             password,
             confirmPassword,
             accountType,
-            contactNumber,
+            // contactNumber,
             otp
             } = req.body;
 
@@ -111,16 +108,17 @@ exports.signUp = async(req,res) => {
         }
 
         // Find most resent OTP
-        const recentOtp = await OTP.find({email}).sort({createdAt:-1}).limit(1);
-        console.log(recentOtp);
-
+        const recentOtp = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1)
+        // const recentOtp = await OTP.find({email});
+        // console.log("recent otp : ",recentOtp);
+        
         if(recentOtp.length == 0){
             return res.status(400).json({
                 success:false,
                 message:"OTP Doesn't Founded !"
             })
         }
-        else if(otp !== recentOtp.otp){
+        else if(otp !== recentOtp[0].otp){
             return res.status(400).json({
                 success:false,
                 message:"Invalid OTP !"
@@ -130,24 +128,22 @@ exports.signUp = async(req,res) => {
         // Hash Password
 
         const hashedPassword = await bcrypt.hash(password,10);
-        console.log(hashedPassword);
+        console.log("Hashed Password : ",hashedPassword);
         const profileDetails = await Profile.create({
             gender:null,
             dateOfBirth:null,
             about:null,
             contactNumber:null,            
         })
-
         const user = await User.create({
             firstName,
             lastName,
             email,
             password: hashedPassword,
-            accountType,
+            accountType:accountType,
             additionalDetails:profileDetails._id,
-            image:`https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`
+            images:`https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
         })
-
         // Response
         return res.status(200).json({
             success:true,
@@ -200,7 +196,7 @@ exports.login = async (req,res) =>{
             const token = jwt.sign(payload , process.env.JWT_SECRET ,{
                 expiresIn:"2h",
             })
-            user.token = tokent;
+            user.token = token;
             user.password = undefined;
 
             // Cookie genrate

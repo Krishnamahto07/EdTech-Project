@@ -14,7 +14,7 @@ const otpSchema = new mongoose.Schema(
         createdAt:{
             type:Date,
             default:Date.now(),
-            expires:5*60,
+            expires:20*60,
         }
     }
 )
@@ -22,7 +22,8 @@ const otpSchema = new mongoose.Schema(
 
 async function sendVerificationEmail(email, otp){
     try {
-        const mailResponse = await mailSender(email,"Varification Email from StudyNotion",otp);
+        console.log(otp)
+        const mailResponse = await mailSender(email," Varification Email from StudyNotion ",otp);
         console.log("Email send Successfully", mailResponse);
     } catch (error) {
         console.log("Error in Sending Email",error);   
