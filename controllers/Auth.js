@@ -36,6 +36,7 @@ exports.sendOTP = async(req,res) =>{
                 lowerCaseAlphabets:false,
                 specialChars:false,
             });
+            console.log("OTP = ",otp);
             result = await OTP.findOne({otp: otp})
         }
 
