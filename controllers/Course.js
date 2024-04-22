@@ -9,14 +9,15 @@ exports.createCourse = async(req,res) =>{
     try {
         // Fetch data
         const {courseName , courseDescription 
-        ,whatYouWillLearn, price , Category} = req.body;
+        ,whatYouWillLearn, price , category
+        ,tag:_tag} = req.body;
 
         // Get Thumbnail
         const thumbnail = req.files.thumbnailImage;
 
         // Validation 
         if(!courseName || !courseDescription || !whatYouWillLearn 
-        || !price || !Category){
+        || !price || !category){
             return res.status(400).json({
                 success:false,
                 message:"Fill All Fields"
@@ -36,7 +37,7 @@ exports.createCourse = async(req,res) =>{
         }
 
         // check for Tag validation
-        const tagDetails = await Tag.findById(tag);
+        const tagDetails = await Course.findById(tag);
 
         if(!tagDetails){
             return res.status(400).json({

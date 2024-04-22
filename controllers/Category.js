@@ -50,6 +50,7 @@ exports.showAllCategories = async(req,res) =>{
         return res.status(200).json({
             success:true,
             message:"Get All Tag Successfull",
+            data:allTags
         })  
     } catch (error) {
         console.log(error);

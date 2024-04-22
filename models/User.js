@@ -21,10 +21,12 @@ const userSchema = new mongoose.Schema(
             type:String,
             required:true,
         },
-        // confirmPassword:{
-        //     type:String,
-        //     required:true,
-        // },
+        confirmPassword:{
+            type:String,
+        },
+        contactNumber:{
+            type:Number,
+        },
         accountType:{
             type:String,
             required:true,

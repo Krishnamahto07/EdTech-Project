@@ -1,22 +1,21 @@
 const User = require("../models/User")
 const mailSender = require("../utils/mailSender")
 const bcrypt = require("bcrypt")
+const crypto = require("crypto")
 // Reset Password Token
 exports.resetPasswordToken = async(req,res) =>{
     try {
-            // Fetch data 
-            const email = req.body;
-
-            // Validiton
-            const user = await User.findOne({email});
-
+        // Fetch data 
+        const email = req.body.email;
+        
+        // Validiton
+        const user = await User.findOne({email});
             if(!user){
                 return res.status(400).json({
                     success:false,
                     message:"Email is not Registered"
                 })
             }
-
             // Genrate Token
             const token = crypto.randomUUID();
 
@@ -42,7 +41,8 @@ exports.resetPasswordToken = async(req,res) =>{
             // return response
             return res.status(200).json({
                 success:true,
-                message:"Password Reset Successfull"
+                message:"Password Reset Successfull",
+                data:token
             })
 
     } catch (error) {
@@ -68,7 +68,7 @@ exports.resetPassword = async(req,res) =>{
         // find
         const userDetails = await User.findOne({token:token});
         
-
+        // console.log("Token = ",token);
         // if not user in DB
         if(!userDetails){
             return res.status(400).json({
@@ -87,7 +87,7 @@ exports.resetPassword = async(req,res) =>{
         const hashedPassword = await bcrypt.hash(password,10);
         
         // update password
-        await User.findOne(
+        await User.findOneAndUpdate(
             {token:token},
             {password:hashedPassword},
             {new:true},
