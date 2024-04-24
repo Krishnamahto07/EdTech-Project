@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from "./Button"
-import { IoArrowRedoOutline } from "react-icons/io5";
+// import { IoArrowRedoOutline } from "react-icons/io5";
 
 
 import { TypeAnimation } from 'react-type-animation'
