@@ -10,26 +10,26 @@ import { categories } from '../../services/apis'
 import { IoIosArrowUp } from "react-icons/io";
 
 
-const sublinks = [
-    {
-        "_id": "66240b9b5e613e2307a356ac",
-        "name": "Devops",
-        "desciption": "Python is a Famous Programming Language",
-        "link":"/Devops"
-    },
-    {
-        "_id": "66240c155e613e2307a356ae",
-        "name": "Web Developement",
-        "desciption": "Web Developement can make you Job ready ..",
-        "link":"/Devops"
-    },
-    {
-        "_id": "66240c565e613e2307a356b0",
-        "name": "Java DSA",
-        "desciption": "Java + DSA for FANG company.",
-        "link":"/Devops"
-    }
-]
+// const sublinks = [
+//     {
+//         "_id": "66240b9b5e613e2307a356ac",
+//         "name": "Devops",
+//         "desciption": "Python is a Famous Programming Language",
+//         "link":"/Devops"
+//     },
+//     {
+//         "_id": "66240c155e613e2307a356ae",
+//         "name": "Web Developement",
+//         "desciption": "Web Developement can make you Job ready ..",
+//         "link":"/Devops"
+//     },
+//     {
+//         "_id": "66240c565e613e2307a356b0",
+//         "name": "Java DSA",
+//         "desciption": "Java + DSA for FANG company.",
+//         "link":"/Devops"
+//     }
+// ]
 
 const Navbar = () => {
     const {token} = useSelector((state) => state.auth);
@@ -40,17 +40,13 @@ const Navbar = () => {
     const matchRoute = (route) => {
         return matchPath({path:route} , location.pathname);
     }
-    // const [sublinks, setSublinks] = useState([]);
+    const [sublinks, setSublinks] = useState([]);
 
     const fetchCatalog = async()=>{
         try {
-            console.log(categories.CATEGORIES_API);
             let result = await apiConnector("GET",categories.CATEGORIES_API);
-
-            console.log("Result : ", result);
-            // setSublinks(result?.data?.data);
+            setSublinks(result?.data.data);
         } catch (error) {
-            // console.log("error in fetch data")
             console.log(error);
         }
     }
@@ -66,7 +62,7 @@ const Navbar = () => {
             </Link>
 
             <nav className=''>
-                <ul className='flex gap-3 text-white '>
+                <ul className='flex gap-3 text-richblack-25 '>
                     {
                         NavbarLinks.map((link,index) => {
                             return (
@@ -90,7 +86,7 @@ const Navbar = () => {
                                                 </div>
                                                 {
                                                     sublinks.map((sublink,index) => (
-                                                        <Link to={`${sublink.link}`}>
+                                                        <Link to={`${sublink.link}`} key={index}>
                                                             {sublink.name}
                                                         </Link>
                                                     ))
@@ -129,19 +125,26 @@ const Navbar = () => {
                     {
                         token === null && (
                             <Link to="/login">
-                                <button>Login</button>
+                                <button className='bg-richblack-800 px-2 py-1 rounded-md hover:bg-richblack-700 transition-all duration-200 ease-linear '>Login</button>
                             </Link>
                         )
                     }
                     {
                         token === null && (
                             <Link to="/signup">
-                                <button>Signup</button>
+                                <button className='bg-richblack-800 px-2 py-1 rounded-md hover:bg-richblack-700 transition-all duration-200 ease-linear '>Signup</button>
                             </Link>
                         )
                     }
                     {
                         (token !== null) && <ProfileDropdown/>
+                    }
+                    {
+                        token !== null && (
+                            <Link to="/logout">
+                                <button  className='bg-richblack-800 px-2 py-1 rounded-md hover:bg-richblack-700 transition-all duration-200 ease-linear '>Logout</button>
+                            </Link>
+                        )
                     }
             </div>
 
