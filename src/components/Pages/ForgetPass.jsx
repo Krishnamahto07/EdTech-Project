@@ -2,7 +2,10 @@ import { useState } from "react"
 import { BiArrowBack } from "react-icons/bi"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-// import { getPasswordResetToken } from "../services/operations/authAPI"
+import { getPasswordResetToken } from "../../services/operations/authApi"
+// import Spinner from "../common/Spinner"
+import { Spinner } from "@material-tailwind/react";
+
 
 
 
@@ -15,7 +18,7 @@ function ForgotPassword(){
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
-    // dispatch(getPasswordResetToken(email, setEmailSent))
+    dispatch(getPasswordResetToken(email, setEmailSent))
   }
 
 
@@ -23,7 +26,7 @@ function ForgotPassword(){
 
     <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
 
-      { loading ? ( <div className="spinner">Spinner</div> ) : (
+      { loading ? (<div><Spinner className="h-12 w-12" /></div> ) : (
     
               <div className="max-w-[500px] p-4 lg:p-8">
 
@@ -37,8 +40,8 @@ function ForgotPassword(){
 
                   {!emailSent && (
                       <label className="w-full">
-                        <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5"> Email Address <sup className="text-pink-200">*</sup> </p>
-                        <input required type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter email address" className="form-style w-full"  />
+                        <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5 "> Email Address <sup className="text-pink-200">*</sup> </p>
+                        <input required type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter email address" className="form-style w-full py-2 rounded px-2"  />
                       </label>
                   )}
 

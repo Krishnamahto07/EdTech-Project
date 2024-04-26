@@ -8,5 +8,8 @@ export const categories = {
 
 export const endpoints = {
     LOGIN_API : process.env.REACT_APP_BASE_URL+"/auth/login",
-    SENDOTP_API : process.env.REACT_APP_BASE_URL+"/auth/sendotp"
+    SENDOTP_API : process.env.REACT_APP_BASE_URL+"/auth/sendotp",
+    SIGNUP_API: BASE_URL + "/auth/signup",
+    RESETPASSTOKEN_API: BASE_URL + "/auth/reset-password-token",
+    RESETPASSWORD_API: BASE_URL + "/auth/reset-password",
 }

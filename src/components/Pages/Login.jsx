@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import "./login.css"
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {login} from "../../services/operations/authApi"
 
 const Login = () => {
@@ -38,9 +38,14 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full p-3 border border-gray-300 rounded-md mt-5"
         />
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-5">
-          Login
-        </button>
+        <div className="flex gap-2 items-center">
+          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-5">
+            Login
+          </button>
+          <Link to="/forgot-password">
+              <p className="mt-4 bg-richblack-800 px-2 py-1 rounded text-richblack-200">Forgot Password ?</p>
+          </Link>
+        </div>
       </form>
     </div>
   );

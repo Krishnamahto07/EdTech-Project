@@ -44,7 +44,7 @@ exports.sendOTP = async(req,res) =>{
 
         // create Entry in DB
         const otpBody = await OTP.create(otpPayload);
-        // console.log(otpBody);
+        console.log("otp saving in DB : ",otpBody);
 
         // Response
 
@@ -79,14 +79,13 @@ exports.signUp = async(req,res) => {
             password,
             confirmPassword,
             accountType,
-            // contactNumber,
             otp
             } = req.body;
 
         // All types of validation
 
         if( !email || !firstName || !lastName 
-            || !password || !confirmPassword || !otp ){
+            || !password || !confirmPassword || !otp || !accountType){
                 return res.status(401).json({
                     success:false,
                     message:"Fill All The Details !"
@@ -109,9 +108,10 @@ exports.signUp = async(req,res) => {
         }
 
         // Find most resent OTP
-        const recentOtp = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1)
+        const recentOtp = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+        
         // const recentOtp = await OTP.find({email});
-        // console.log("recent otp : ",recentOtp);
+        console.log("recent otp : ",recentOtp);
         
         if(recentOtp.length == 0){
             return res.status(400).json({
@@ -136,6 +136,8 @@ exports.signUp = async(req,res) => {
             about:null,
             contactNumber:null,            
         })
+        console.log("Account Type = ", accountType);
+        console.log("Create User");
         const user = await User.create({
             firstName,
             lastName,

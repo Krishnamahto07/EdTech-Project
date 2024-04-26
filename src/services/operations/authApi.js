@@ -4,7 +4,7 @@ import { apiConnector } from "../apiConnector";
 import {setToken ,setLoading} from "../../redux/slices/authSlice"
 import { endpoints } from "../apis";
 import { setUser } from "../../redux/slices/profileSlice";
-const {LOGIN_API ,SENDOTP_API} = endpoints
+const {LOGIN_API ,SENDOTP_API ,RESETPASSWORD_API ,RESETPASSTOKEN_API ,SIGNUP_API} = endpoints
 
 export function login(email,password,navigate){
     // const dispatch = useDispatch();
@@ -35,12 +35,56 @@ export function login(email,password,navigate){
     }
 }
 
+export function signUp(
+  accountType,
+  firstName,
+  lastName,
+  email,
+  password,
+  confirmPassword,
+  otp,
+  navigate
+) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...")
+    dispatch(setLoading(true))
+    try {
+      const response = await apiConnector("POST", SIGNUP_API, {
+        accountType,
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword,
+        otp,
+      })
+
+      console.log("SIGNUP API RESPONSE............", response)
+
+      if (!response.data.success) {
+        throw new Error(response.data.message)
+      }
+      toast.success("Signup Successful")
+      navigate("/login")
+    } catch (error) {
+      console.log("SIGNUP API ERROR............", error)
+      toast.error("Signup Failed")
+      navigate("/signup")
+    }
+    dispatch(setLoading(false))
+    toast.dismiss(toastId)
+  }
+}
+
+
 export function sendOtp(email, navigate) {
     return async (dispatch) => {
       const toastId = toast.loading("Loading...")
       dispatch(setLoading(true))
       try {
         const response = await apiConnector("POST", SENDOTP_API, {email, checkUserPresent: true,})
+        // const response = await apiConnector("POST", SENDOTP_API, {email, })
+
         console.log("SENDOTP API RESPONSE............", response)
       
         if(!response.data.success) {
@@ -56,4 +100,56 @@ export function sendOtp(email, navigate) {
       dispatch(setLoading(false))
       toast.dismiss(toastId)
     }
+}
+export function logout(navigate){
+  return (dispatch) =>{
+    dispatch(setToken(null))
+    dispatch(setUser(null))
+    // dispatch(resetCart())
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    toast.success("Logged Out")
+    navigate("/")
   }
+}
+
+export function getPasswordResetToken(email,setEmailSent){
+  return async(dispatch) =>{
+    dispatch(setLoading(true))
+    try {
+      const response = await apiConnector("POST",RESETPASSTOKEN_API,{email})
+      console.log("RESET PASSWORD TOKEN RESPONSE ...",response)
+
+      if(!response.data.success){
+        throw new Error(response.data.message)
+      }
+
+      toast.success("Reset Email Sent");
+      setEmailSent(true)
+    } catch (error) {
+      console.log("Reset password error ...")
+      toast.error("Failed to get Password reset token ..")
+    }
+    dispatch(setLoading(false))
+  }
+}
+
+export function resetPassword(password , confirmPassword , token){
+  return async(dispatch) =>{
+    dispatch(setLoading(true))
+    try {
+      const response = await apiConnector("POST", RESETPASSWORD_API , {password,confirmPassword,token});
+      console.log("RESET Password Response ...",response)
+
+      if(!response.data.success){
+        throw new Error(response.data.message);
+      }
+      toast.success("Password reset Successfull .")
+
+    } catch (error) {
+      console.log("Reset password error ...")
+      toast.error("Failed to set New Password  ..")
+    }
+    dispatch(setLoading(false))
+  }
+}

@@ -19,7 +19,6 @@ const otpSchema = new mongoose.Schema(
     }
 )
 // a function that will send Emails
-
 async function sendVerificationEmail(email, otp){
     try {
         console.log(otp)
@@ -35,4 +34,4 @@ otpSchema.pre("save", async function(next){
     await sendVerificationEmail(this.email,this.otp);
     next();
 })
-module.exports = mongoose.model("OTP",otpSchema)
+module.exports = mongoose.model("OTP",otpSchema);

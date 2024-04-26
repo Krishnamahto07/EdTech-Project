@@ -139,17 +139,8 @@ const Navbar = () => {
                     {
                         (token !== null) && <ProfileDropdown/>
                     }
-                    {
-                        token !== null && (
-                            <Link to="/logout">
-                                <button  className='bg-richblack-800 px-2 py-1 rounded-md hover:bg-richblack-700 transition-all duration-200 ease-linear '>Logout</button>
-                            </Link>
-                        )
-                    }
             </div>
-
         </div>
-      
     </div>
   )
 }

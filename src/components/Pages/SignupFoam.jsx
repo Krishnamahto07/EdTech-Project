@@ -19,6 +19,7 @@ const SignupForm = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      accountType:"Student"
     })
 
     const { firstName, lastName, email, password, confirmPassword ,accountType} = formData
@@ -45,10 +46,12 @@ const SignupForm = () => {
             <input value={email}           name="email" onChange={handleOnChange}  className='rounded px-3 py-2 hover:bg-richblack-600 ' type='email' placeholder='Enter Email ...' />
             <input value={password}        name="password" onChange={handleOnChange}  className='rounded px-3 py-2 hover:bg-richblack-600 ' type='password' placeholder='Enter Password ...' />
             <input value={confirmPassword} name="confirmPassword" onChange={handleOnChange}  className='rounded px-3 py-2 hover:bg-richblack-600 ' type='password' placeholder='Enter Confirm Password ...' />
-            <select value={accountType}    name="accountType" onChange={handleOnChange}  className='rounded px-3 py-2 hover:bg-richblack-600 ' >
+            {/* <select value={accountType}    name="accountType" onChange={handleOnChange}  className='rounded px-3 py-2 hover:bg-richblack-600 ' >
                 <option value="Student">Student</option>
                 <option value="Instructor">Instructor</option>
-            </select>
+            </select> */}
+            <input value={accountType} name="accountType" onChange={handleOnChange}  className='rounded px-3 py-2 hover:bg-richblack-600 ' type='text' placeholder='Enter Account Password ...' />
+
             <button type='submit' className='bg-richblack-500 px-2 py-2'>Submit</button>
         </form>
       </div>
