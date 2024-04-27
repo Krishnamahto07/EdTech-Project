@@ -4,6 +4,8 @@ import { apiConnector } from "../apiConnector";
 import {setToken ,setLoading} from "../../redux/slices/authSlice"
 import { endpoints } from "../apis";
 import { setUser } from "../../redux/slices/profileSlice";
+import { useNavigate } from "react-router-dom";
+
 const {LOGIN_API ,SENDOTP_API ,RESETPASSWORD_API ,RESETPASSTOKEN_API ,SIGNUP_API} = endpoints
 
 export function login(email,password,navigate){
@@ -135,6 +137,7 @@ export function getPasswordResetToken(email,setEmailSent){
 }
 
 export function resetPassword(password , confirmPassword , token){
+  // const navigate = useNavigate();
   return async(dispatch) =>{
     dispatch(setLoading(true))
     try {
@@ -145,7 +148,7 @@ export function resetPassword(password , confirmPassword , token){
         throw new Error(response.data.message);
       }
       toast.success("Password reset Successfull .")
-
+      // navigate("/")
     } catch (error) {
       console.log("Reset password error ...")
       toast.error("Failed to set New Password  ..")

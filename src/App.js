@@ -9,6 +9,7 @@ import OpenRoute from './components/auth/OpenRoute';
 import ForgotPassword from './components/Pages/ForgetPass';
 import UpdatePassword from './components/Pages/UpdatePassword';
 import VarifyEmail from './components/Pages/VarifyEmail';
+import About from './components/Pages/About';
 
 // require('dotenv').config();
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/forgot-password' element={<OpenRoute><ForgotPassword/></OpenRoute>}/>
         <Route path='/update-password/:id' element={<OpenRoute><UpdatePassword/></OpenRoute>}/>
         <Route path='/verify-email' element={<OpenRoute><VarifyEmail/></OpenRoute>}/>
+        <Route path='/about' element={<About />} />
 
       </Routes>
     </div>

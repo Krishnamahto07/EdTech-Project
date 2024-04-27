@@ -3,6 +3,7 @@ import "./login.css"
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {login} from "../../services/operations/authApi"
+import { BsQuestionCircle } from "react-icons/bs";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mt-10">
+    <div className="flex flex-col items-center justify-center mt-10 md:w-full w-2/3 mx-auto">
       <h1 className="text-3xl font-bold">Login</h1>
       <form onSubmit={handleFormSubmit} className="mt-5">
         <input
@@ -39,11 +40,11 @@ const Login = () => {
           className="w-full p-3 border border-gray-300 rounded-md mt-5"
         />
         <div className="flex gap-2 items-center">
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-5">
+          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-md mt-5">
             Login
           </button>
           <Link to="/forgot-password">
-              <p className="mt-4 bg-richblack-800 px-2 py-1 rounded text-richblack-200">Forgot Password ?</p>
+              <p className="mt-4 bg-richblack-800 px-4 py-2 rounded text-richblack-200 flex gap-2 justify-center items-center">Forgot Password <BsQuestionCircle /></p>
           </Link>
         </div>
       </form>

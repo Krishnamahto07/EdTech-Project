@@ -44,7 +44,6 @@ const Home = () => {
             <div className='flex gap-4 mt-8'>
                 <Button active={true} link={"/signup"}>Learn more</Button>
                 <Button active={false} link={"/login"}>Book a Demo</Button>
-                
             </div>
 
             <div className='w-8/12 mx-auto my-8 border border-blue-50 shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]'>
