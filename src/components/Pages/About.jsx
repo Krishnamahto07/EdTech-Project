@@ -5,10 +5,11 @@ import Banner3 from "../../assets/Images/aboutus3.webp"
 import Quote from '../AboutPages/Quote'
 import FoundingStory from "../../assets/Images/FoundingStory.png"
 
-
+import Footer from "../common/Footer"
 import HightlightText from "../Homepages/HighlightText"
 import StatsComponenet from '../AboutPages/Stats'
 import LearningGrid from '../AboutPages/LearningGrid'
+import ContactFormSection from '../AboutPages/ContactFormSection'
 const About = () => {
   return (
     <div className='text-richblack-25'>
@@ -105,7 +106,13 @@ const About = () => {
       <StatsComponenet/>
       <section className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white">
         <LearningGrid/>
+        <ContactFormSection/>
       </section>
+      <section>
+        <h1>Review of Others</h1>
+        {/* Review */}
+      </section>
+      <Footer />
     </div>
   )
 }
