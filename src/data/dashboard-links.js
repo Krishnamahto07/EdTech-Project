@@ -1,5 +1,5 @@
 import { ACCOUNT_TYPE } from "../utils/constants";
-export const sidebarLinks = [
+const sidebarLinks = [
   {
     id: 1,
     name: "My Profile",
@@ -42,3 +42,5 @@ export const sidebarLinks = [
     icon: "VscHistory",
   },
 ];
+
+export default sidebarLinks

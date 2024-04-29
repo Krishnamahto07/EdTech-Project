@@ -6,6 +6,7 @@ import React, {  useState } from 'react'
 import {toast} from "react-hot-toast"
 import { setSignupData } from '../../redux/slices/authSlice';
 import { sendOtp } from '../../services/operations/authApi';
+// import Loading from '../common/Loading';
 
 
 const SignupForm = () => {
@@ -44,6 +45,7 @@ const SignupForm = () => {
   return (
     
       <div className="flex flex-col items-center justify-center mt-10 md:w-full w-2/3 mx-auto">
+        <h1 className='text-3xl font-semibold text-richblack-5'>Sign up </h1>
         <form onSubmit={submitHandler}     className='flex flex-col gap-3 lg:w-1/2 w-full'>
             <div className='flex gap-4  w-full'>
               <input value={firstName} required  id='firstName'    name="firstName" onChange={handleOnChange}  className='w-1/2 rounded px-3 py-2 hover:bg-richblack-600 ' type='text'  placeholder='Enter First Name ...'/>
@@ -79,6 +81,7 @@ const SignupForm = () => {
 
             <button type='submit' className='bg-richblack-500 px-2 py-2'>Submit</button>
         </form>
+        {/* <Loading/> */}
       </div>
     
   )

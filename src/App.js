@@ -10,6 +10,8 @@ import ForgotPassword from './components/Pages/ForgetPass';
 import UpdatePassword from './components/Pages/UpdatePassword';
 import VarifyEmail from './components/Pages/VarifyEmail';
 import About from './components/Pages/About';
+import Contact from './components/Pages/Contact';
+import Dashboard from './components/Pages/Dashboard';
 
 // require('dotenv').config();
 
@@ -26,7 +28,8 @@ function App() {
         <Route path='/update-password/:id' element={<OpenRoute><UpdatePassword/></OpenRoute>}/>
         <Route path='/verify-email' element={<OpenRoute><VarifyEmail/></OpenRoute>}/>
         <Route path='/about' element={<About />} />
-
+        <Route path='/contact' element={<Contact/>}/>
+        <Route path='/dashboard' element={<Dashboard/>}/>
       </Routes>
     </div>
   );

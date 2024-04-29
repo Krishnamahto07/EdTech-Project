@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import "./login.css"
+// import "./login.css"
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {login} from "../../services/operations/authApi"
@@ -23,7 +23,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-10 md:w-full w-2/3 mx-auto">
-      <h1 className="text-3xl font-bold">Login</h1>
+      <h1 className="text-3xl font-bold text-richblack-5">Login</h1>
       <form onSubmit={handleFormSubmit} className="mt-5">
         <input
           type="email"
