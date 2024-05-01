@@ -12,6 +12,9 @@ import VarifyEmail from './components/Pages/VarifyEmail';
 import About from './components/Pages/About';
 import Contact from './components/Pages/Contact';
 import Dashboard from './components/Pages/Dashboard';
+import Myprofile from './components/dashboard/Myprofile';
+import PrivateRoute from './components/auth/PrivateRoute';
+import Error from "./components/Pages/Error"
 
 // require('dotenv').config();
 
@@ -29,7 +32,12 @@ function App() {
         <Route path='/verify-email' element={<OpenRoute><VarifyEmail/></OpenRoute>}/>
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
+
+        <Route element={<PrivateRoute><Dashboard/></PrivateRoute>}>
+            <Route path='/dashboard/my-profile' element={<Myprofile/>}/>
+        </Route>
+
+        <Route path='*' element={<Error />}/>
       </Routes>
     </div>
   );
