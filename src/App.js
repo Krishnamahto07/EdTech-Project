@@ -16,6 +16,7 @@ import Myprofile from './components/dashboard/Myprofile';
 import PrivateRoute from './components/auth/PrivateRoute';
 import Error from "./components/Pages/Error"
 import Setting from './components/dashboard/settings/index';
+import EnrolledCourses from './components/dashboard/EnrolledCourses';
 
 // require('dotenv').config();
 
@@ -37,6 +38,7 @@ function App() {
         <Route element={<PrivateRoute><Dashboard/></PrivateRoute>}>
             <Route path='/dashboard/my-profile' element={<Myprofile/>}/>
             <Route path='/dashboard/settings' element={<Setting/>} />
+            <Route path='/dashboard/enrolled-courses' element={<EnrolledCourses/>} />
         </Route>
 
         <Route path='*' element={<Error />}/>
