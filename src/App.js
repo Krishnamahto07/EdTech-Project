@@ -17,10 +17,14 @@ import PrivateRoute from './components/auth/PrivateRoute';
 import Error from "./components/Pages/Error"
 import Setting from './components/dashboard/settings/index';
 import EnrolledCourses from './components/dashboard/EnrolledCourses';
+import Cart from "./components/dashboard/cart/index";
+import { ACCOUNT_TYPE } from './utils/constants';
+import { useSelector } from 'react-redux';
 
 // require('dotenv').config();
 
 function App() {
+  const {user} = useSelector((state) => state.profile)
   return (
     <div className='w-screen min-h-screen bg-richblack-900 flex flex-col font-inter'>
       <Navbar />
@@ -38,7 +42,16 @@ function App() {
         <Route element={<PrivateRoute><Dashboard/></PrivateRoute>}>
             <Route path='/dashboard/my-profile' element={<Myprofile/>}/>
             <Route path='/dashboard/settings' element={<Setting/>} />
-            <Route path='/dashboard/enrolled-courses' element={<EnrolledCourses/>} />
+
+            {
+              user?.accountType === ACCOUNT_TYPE.STUDENT && (
+                <>
+                  <Route path='/dashboard/cart' element={<Cart />} />
+                  <Route path='/dashboard/enrolled-courses' element={<EnrolledCourses/>} />
+                </>
+              )
+            }
+
         </Route>
 
         <Route path='*' element={<Error />}/>
