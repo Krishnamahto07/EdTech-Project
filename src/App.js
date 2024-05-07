@@ -20,6 +20,7 @@ import EnrolledCourses from './components/dashboard/EnrolledCourses';
 import Cart from "./components/dashboard/cart/index";
 import { ACCOUNT_TYPE } from './utils/constants';
 import { useSelector } from 'react-redux';
+import AddCourses from './components/dashboard/addCourses/index';
 
 // require('dotenv').config();
 
@@ -48,6 +49,15 @@ function App() {
                 <>
                   <Route path='/dashboard/cart' element={<Cart />} />
                   <Route path='/dashboard/enrolled-courses' element={<EnrolledCourses/>} />
+                </>
+              )
+            }
+
+            {
+              user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+                <>
+                  {/* <Route path='/dashboard/cart' element={<Cart />} /> */}
+                  <Route path='/dashboard/add-course' element={<AddCourses/>} />
                 </>
               )
             }
