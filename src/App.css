@@ -4,6 +4,9 @@ html ,body {
 .bgImg{
   background-image: url(./assets//Images/bghome.svg);
 }
+.formTag{
+  color: rgba(32, 4, 4, 0.692);
+}
 /* .b1{
   background-image: radial-gradient(circle, #74a4eb, #00c0f1, #00d6d7, #74e4ac, #cbe988);
 } */
