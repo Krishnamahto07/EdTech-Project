@@ -38,7 +38,7 @@ const courseSchema = new mongoose.Schema(
             type:[String],
             required: true,
         },
-        Category:{
+        category:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"Category",
         },
@@ -55,6 +55,10 @@ const courseSchema = new mongoose.Schema(
         status:{
             type:String,
             enum:["Draft","Published"],
+        },
+        createdAt:{
+            type:Date,
+            default:Date.now
         },
     }
 );

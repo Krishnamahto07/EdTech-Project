@@ -9,12 +9,14 @@ exports.createCourse = async(req,res) =>{
     try {
         // Fetch data
         const {courseName , courseDescription 
-        ,whatYouWillLearn, price , category
-        ,tag:_tag} = req.body;
+            ,whatYouWillLearn, price , category
+            ,tag:_tag} = req.body;
+            
+            // console.log("in create Course");
+            // Get Thumbnail
 
-        // Get Thumbnail
-        const thumbnail = req.files.thumbnailImage;
-
+            const thumbnail = req.files.thumbnailImage;
+            
         // Validation 
         if(!courseName || !courseDescription || !whatYouWillLearn 
         || !price || !category){
@@ -27,7 +29,7 @@ exports.createCourse = async(req,res) =>{
         // check for Instructor
         const userId = req.user.id;
         const instructorDetails = await User.findById(userId);
-        console.log("Instructor Details : ",instructorDetails);
+        // console.log("Instructor Details : ",instructorDetails);
 
         if(!instructorDetails){
             return res.status(400).json({
@@ -37,21 +39,19 @@ exports.createCourse = async(req,res) =>{
         }
 
         // check for Tag validation
-        const tagDetails = await Course.findById(tag);
+        const categoryDetails = await Category.findById(category);
 
-        if(!tagDetails){
+        if(!categoryDetails){
             return res.status(400).json({
                 success:false,
-                message:"Tag Details Not Found"
+                message:"Category Details Not Found"
             })
         }
 
         // Upload Image to Cloudinary
-
         const thumbnailImage = await uploadImageCloudinary(thumbnail,process.env.FOLDER_NAME);
 
         // Create Entry for new Course
-
         const newCourse = await Course.create(
             {
                 courseName,
@@ -59,7 +59,7 @@ exports.createCourse = async(req,res) =>{
                 instructor:instructorDetails._id,
                 whatYouWillLearn:whatYouWillLearn,
                 price,
-                tag:tagDetails._id,
+                category:category._id,
                 thumbnail:thumbnailImage.secure_url,
             }
         )
@@ -85,16 +85,19 @@ exports.createCourse = async(req,res) =>{
         )
         */
 
-        return res.status(200).json({
+        console.log("Course Created Successfull  => ",newCourse)
+        return res.status(200).json(
+            {
             success:true,
             message:"Course Created Successfull",
             data:newCourse,
-        })
+            }
+        )
     } catch (error) {
         console.log(error);
         return res.status(500).json({
             success:false,
-            message:"Error in Courser Creation !!!"
+            message:"Error in Course Creation !!!"
         })
     }
 }

@@ -7,7 +7,7 @@ const IconBtn = ({
     type,
 }) => {
   return (
-    <button
+    <button className='text-richblack-800 bg-blue-100 px-3 py-2 rounded hover:scale-95 drop-shadow-xl duration-200 ease-linear'
     disabled={disabled}
     onClick={onclick}
     type={type}
