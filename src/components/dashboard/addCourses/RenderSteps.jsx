@@ -1,8 +1,9 @@
 import { FaCheck } from "react-icons/fa"
 import { useSelector } from "react-redux"
-import CourseInformationForm from "./CourseInformation/CourseInformationForm"
+
 import CourseBuilderForm from "./courseBuilder/CourseBuilderForm"
-// import PublishCourse from "./PublishCourse"
+import CourseInformationForm from "./CourseInformation/CourseInformationForm"
+import PublishCourse from "./PublishCourse/index"
 
 
 export default function RenderSteps() {
@@ -26,7 +27,7 @@ export default function RenderSteps() {
   return (
     <>
       <div className="relative mb-2 flex w-full justify-center">
-        {steps.map((item,index) => (
+        {steps.map((item) => (
           <>
             <div
               className="flex flex-col items-center "
@@ -81,11 +82,9 @@ export default function RenderSteps() {
         ))}
       </div>
       {/* Render specific component based on current step */}
-      <div>
-        {step === 1 && <CourseInformationForm />}
-        {step === 2 && <CourseBuilderForm />}
-        {/*    {step === 3 &&  <PublishCourse /> } */} 
-      </div>
+      {step === 1 && <CourseInformationForm />}
+      {step === 2 && <CourseBuilderForm />}
+      {step === 3 &&  <PublishCourse /> }
     </>
   )
 }

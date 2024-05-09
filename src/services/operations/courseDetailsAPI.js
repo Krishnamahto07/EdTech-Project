@@ -130,6 +130,7 @@ export const editCourseDetails = async (data, token) => {
 
 // create a section
 export const createSection = async (data, token) => {
+  console.log("Creating section");
   let result = null
   const toastId = toast.loading("Loading...")
   try {

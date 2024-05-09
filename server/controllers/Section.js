@@ -72,7 +72,7 @@ exports.updateSection = async(req,res) =>{
     } catch (error) {
         return res.status(500).json({
             success:false,
-            message:"Error in Update Section",
+            message:"Error in Update Section hi",
         })
     }
 }
