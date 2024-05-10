@@ -17,6 +17,7 @@ import {
 import IconBtn from "../../../common/IconBtn"
 import NestedView from "./NestedView"
 
+
 export default function CourseBuilderForm() {
   const {
     register,
@@ -33,11 +34,10 @@ export default function CourseBuilderForm() {
 
   // handle form submission
   const onSubmit = async (data) => {
-    // console.log(data)
+    console.log("DATA ->  ",data)
     setLoading(true)
 
-    let result
-
+    let result;
     if (editSectionName) {
       result = await updateSection(
         {
@@ -47,8 +47,9 @@ export default function CourseBuilderForm() {
         },
         token
       )
-      // console.log("edit", result)
+      console.log("editing ...", result)
     } else {
+      console.log("section name => ",data.sectionName);
       result = await createSection(
         {
           sectionName: data.sectionName,
@@ -56,9 +57,9 @@ export default function CourseBuilderForm() {
         },
         token
       )
+      console.log("RESULT ..",result);
     }
     if (result) {
-      // console.log("section result", result)
       dispatch(setCourse(result))
       setEditSectionName(null)
       setValue("sectionName", "")
@@ -122,7 +123,7 @@ export default function CourseBuilderForm() {
         </div>
         <div className="flex items-end gap-x-4">
           <IconBtn
-            type="submit"
+            type="Submit"
             disabled={loading}
             text={editSectionName ? "Edit Section Name" : "Create Section"}
             outline={true}

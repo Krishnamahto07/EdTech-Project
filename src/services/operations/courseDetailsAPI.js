@@ -131,7 +131,7 @@ export const editCourseDetails = async (data, token) => {
 // create a section
 export const createSection = async (data, token) => {
   console.log("Creating section");
-  let result = null
+  let result = null;
   const toastId = toast.loading("Loading...")
   try {
     const response = await apiConnector("POST", CREATE_SECTION_API, data, {
@@ -142,13 +142,19 @@ export const createSection = async (data, token) => {
       throw new Error("Could Not Create Section")
     }
     toast.success("Course Section Created")
-    result = response?.data?.updatedCourse
+    // console.log("RESULT before =>",response);
+    // result = response?.data?.updatedCourse
+    result = response?.data?.updatedCourseDetails
+    // console.log("RESULT after =>",result);
+
   } catch (error) {
     console.log("CREATE SECTION API ERROR............", error)
     toast.error(error.message)
   }
   toast.dismiss(toastId)
-  return result
+  // console.log("RESULT ....",result)
+  return result;
+
 }
 
 // create a subsection
