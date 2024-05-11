@@ -4,7 +4,7 @@ import { useSelector } from "react-redux"
 import CourseBuilderForm from "./courseBuilder/CourseBuilderForm"
 import CourseInformationForm from "./CourseInformation/CourseInformationForm"
 import PublishCourse from "./PublishCourse/index"
-
+import React from "react"
 
 export default function RenderSteps() {
   const { step } = useSelector((state) => state.course)
@@ -27,8 +27,8 @@ export default function RenderSteps() {
   return (
     <>
       <div className="relative mb-2 flex w-full justify-center">
-        {steps.map((item) => (
-          <>
+        {steps.map((item,index) => (
+          <React.Fragment key={index}>
             <div
               className="flex flex-col items-center "
               key={item.id}
@@ -57,13 +57,13 @@ export default function RenderSteps() {
                 ></div>
               </>
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
 
       <div className="relative mb-16 flex w-full select-none justify-between">
-        {steps.map((item) => (
-          <>
+        {steps.map((item,index) => (
+          <React.Fragment key={index}>
             <div
               className="flex min-w-[130px] flex-col items-center gap-y-2"
               key={item.id}
@@ -78,7 +78,7 @@ export default function RenderSteps() {
               </p>
             </div>
             
-          </>
+            </React.Fragment>
         ))}
       </div>
       {/* Render specific component based on current step */}
