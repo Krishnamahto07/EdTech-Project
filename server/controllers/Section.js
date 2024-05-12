@@ -26,7 +26,12 @@ exports.createSection = async(req,res) =>{
                 }
             },
             {new : true},
-        )
+        ).populate({
+            path:"courseContent",
+            populate:{
+                path:"subSection",
+            },
+        }).exec()
         // section ans subSection populate HW
 
         // response 

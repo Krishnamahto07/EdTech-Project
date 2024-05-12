@@ -21,6 +21,7 @@ const CourseBuilderForm = () => {
     let result;
 
     if(editSectionName){
+      console.log("UPDATE SECTION .....")
       result = await updateSection(
         {
           sectionName:data.sectionName,
@@ -30,6 +31,8 @@ const CourseBuilderForm = () => {
       )
     }
     else {
+      console.log("CREATE SECTION .....")
+
       result = await createSection(
         {
           sectionName:data.sectionName,
@@ -82,7 +85,7 @@ const CourseBuilderForm = () => {
     <div className='text-white '>
       <p className='text-2xl'>Course Builder</p>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label htmlFor='sectionName'>Section Name <sup>*</sup></label>
           <input
@@ -118,7 +121,7 @@ const CourseBuilderForm = () => {
       </form>
 
       {
-        course.courseContent.length > 0 && (
+        course?.courseContent?.length > 0 && (
           <NestedView handleChangeEditSectionName={handleChangeEditSectionName}/>
         )
       }

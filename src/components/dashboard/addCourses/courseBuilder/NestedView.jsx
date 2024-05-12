@@ -48,20 +48,24 @@ const NestedView = ({handleChangeEditSectionName}) => {
     }
     setConfirmationModal(null);
   }
+  console.log("COURSE ....",course)
 
   return (
-    <div>
+    <div className=" bg-blue-300 p-5 m-2">
+      <p>Nested view </p>
       <div  className="rounded-lg bg-richblack-700 p-6 px-8">
         {
           course?.courseContent?.map((section,index) => (
-            <details key={index} open>
+            <details key={section._id} open>
               <summary className="flex cursor-pointer items-center justify-between border-b-2 border-b-richblack-600 py-2">
                 <div className="flex items-center gap-x-3">
                   <RxDropdownMenu />
-                  <p>{section.sectionName}</p>
+                  <p className='text-white '>{section.sectionName}</p>
+                  {/* <p className='text-white '>Section Name</p> */}
+
                 </div>
                 <div className='flex items-center gap-x-3'>
-                  <button onClick={handleChangeEditSectionName(section._id,section.sectionName )}>
+                  <button onClick={() => handleChangeEditSectionName(section._id,section.sectionName)}>
                     <MdEdit/>
                   </button>
 
@@ -87,7 +91,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
 
               <div>
                 {
-                  section.subSection.map((data) =>(
+                  section?.subSection?.map((data) =>(
                     <div key={data?._id}
                     onClick={()=> setViewSubSection(data)}
                     className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-b-richblack-600 py-2"
