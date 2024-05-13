@@ -160,7 +160,7 @@ export const createSection = async (data, token) => {
 // create a subsection
 export const createSubSection = async (data, token) => {
   let result = null
-  console.log("DATA OF CREATESUBSECTION ...",data)
+  console.log("DATA OF CREATESUBSECTION ...",data,"\nand  TOKEN... ",token);
   const toastId = toast.loading("Loading...")
   try {
     const response = await apiConnector("POST", CREATE_SUBSECTION_API, data, {
@@ -205,6 +205,7 @@ export const updateSection = async (data, token) => {
 // update a subsection
 export const updateSubSection = async (data, token) => {
   let result = null
+  console.log("DATA TO SEND IN UPDATE subsection .........",token,"\n",data);
   const toastId = toast.loading("Loading...")
   try {
     const response = await apiConnector("POST", UPDATE_SUBSECTION_API, data, {

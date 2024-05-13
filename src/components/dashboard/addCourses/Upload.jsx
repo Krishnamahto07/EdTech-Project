@@ -39,7 +39,7 @@ export default function Upload({
   })
 
   const previewFile = (file) => {
-    // console.log(file)
+    console.log("FILE IN UPLOAD .....",file)
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onloadend = () => {

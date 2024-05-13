@@ -1,5 +1,4 @@
 // import React,{useEffect, useState} from 'react'
-import { useForm } from 'react-hook-form'
 // import toast from 'react-hot-toast';
 // import { useDispatch ,useSelector} from 'react-redux';
 // import { createSubSection, updateSubSection } from '../../../../services/operations/courseDetailsAPI';
@@ -187,6 +186,8 @@ import { useForm } from 'react-hook-form'
 
 import { useEffect, useState } from "react"
 // import { useForm } from "react-hook-form"
+import { useForm } from 'react-hook-form'
+
 import { toast } from "react-hot-toast"
 import { RxCross2 } from "react-icons/rx"
 import { useDispatch, useSelector } from "react-redux"
@@ -265,8 +266,9 @@ export default function SubSectionModal({
     }
     setLoading(true)
     const result = await updateSubSection(formData, token)
+
     if (result) {
-      // console.log("result", result)
+    //   console.log("result updatesubsection  : ", result)
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>
         section._id === modalData.sectionId ? result : section
@@ -279,7 +281,7 @@ export default function SubSectionModal({
   }
 
   const onSubmit = async (data) => {
-    console.log("Data on Submit wala..",data)
+    // console.log("Data on Submit wala..",data)
     if (view) return
 
     if (edit) {
@@ -291,18 +293,28 @@ export default function SubSectionModal({
       return
     }
 
-    const formData = new FormData();
+    // const formData = new FormData();
+    const formData = {
+        modalData:modalData,
+        title:data.lectureTitle,
+        description:data.lectureDesc,
+        video:data.lectureVideo
+    }
 
     // console.log("modalData = ",modalData)
     // console.log(data.lectureTitle,data.lectureDesc,data.lectureVideo);
-    formData.append("sectionId", modalData)
-    formData.append("title", data.lectureTitle)
-    formData.append("description", data.lectureDesc)
-    formData.append("video", data.lectureVideo)
+
+    // formData.append("sectionId", modalData)
+    // formData.append("title", data.lectureTitle)
+    // formData.append("description", data.lectureDesc)
+    // formData.append("video", data.lectureVideo)
 
     console.log("Form Data on submit ..",formData);
 
+
+
     setLoading(true)
+    // ---------------------------------------------------eroor
     const result = await createSubSection(formData, token)
     
     console.log("Resutl in onSubmit ..",result);
