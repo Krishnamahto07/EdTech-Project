@@ -281,7 +281,6 @@ export default function SubSectionModal({
   }
 
   const onSubmit = async (data) => {
-    // console.log("Data on Submit wala..",data)
     if (view) return
 
     if (edit) {
@@ -309,7 +308,7 @@ export default function SubSectionModal({
     // formData.append("description", data.lectureDesc)
     // formData.append("video", data.lectureVideo)
 
-    console.log("Form Data on submit ..",formData);
+    console.log("SENDING DATA ON SUBSECTION ......",formData);
 
 
 
@@ -317,7 +316,7 @@ export default function SubSectionModal({
     // ---------------------------------------------------eroor
     const result = await createSubSection(formData, token)
     
-    console.log("Resutl in onSubmit ..",result);
+    console.log("RESULT AFTER SUBMIT DATA IN SUBSECTION FRONTEND ..",result);
     if (result) {
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>

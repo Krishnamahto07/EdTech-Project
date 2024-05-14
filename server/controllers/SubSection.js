@@ -7,11 +7,12 @@ const {uploadImageCloudinary} = require('../utils/imageUploader')
 exports.createSubSection = async(req,res) =>{
     try {
         // Fetch Data
-        const {modalData , title, timeDuration = '6:30',  description } = req.body;
+        console.log("CREATING SubSection .....");
+        const {modalData , title, description , timeDuration = '6:30' , video} = req.body;
         const sectionId = modalData;
-        console.log("REQ ................................",req?.files);
+        // console.log("REQ ................................",req?.files);
         // Fetch video / file
-        const video = req?.files?.videoFile;
+        // const video = req?.files?.videoFile;
         // validation
         
         if( !title ||  !description){
@@ -39,16 +40,25 @@ exports.createSubSection = async(req,res) =>{
                 message:"Incomplete Data, Video  is missing ",
             })
         }
+        console.log("UPLOADING CLOUDINARY......")
         // upload video to cloudinary
         const uploadDetails = await uploadImageCloudinary(video , process.env.FOLDER_NAME);
+        console.log("UPLOADING CLOUDINARY SUCCESSFULLY ......")
+
         // create subsection
+        console.log("CREATING SUBSECTION ......")
+
         const subSectionDetails = await SubSection.create({
             title:title,
-            timeDuration:timeDuration,
+            timeDuration: timeDuration,
             description:description,
             videoUrl:uploadDetails.secure_url,
         })
+        console.log("CREATING SUBSECTION SUCCESSFULL......")
+
         // update section with subsection id
+        console.log("UPDATING SECTION   ......")
+
         const updatedSection = await Section.findByIdAndUpdate(
             {_id:sectionId},
             {
@@ -58,6 +68,8 @@ exports.createSubSection = async(req,res) =>{
             },
             {new : true}
         )
+        console.log("UPDATING SECTION SECCESSFULL  ......")
+
         // HW : log update section populated data
 
 
