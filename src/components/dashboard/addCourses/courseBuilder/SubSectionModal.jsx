@@ -185,9 +185,7 @@
 
 
 import { useEffect, useState } from "react"
-// import { useForm } from "react-hook-form"
-import { useForm } from 'react-hook-form'
-
+import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import { RxCross2 } from "react-icons/rx"
 import { useDispatch, useSelector } from "react-redux"
@@ -213,7 +211,7 @@ export default function SubSectionModal({
     setValue,
     formState: { errors },
     getValues,
-  } = useForm()
+  } = useForm();
 
   // console.log("view", view)
   // console.log("edit", edit)
@@ -293,22 +291,21 @@ export default function SubSectionModal({
     }
 
     // const formData = new FormData();
-    const formData = {
-        modalData:modalData,
-        title:data.lectureTitle,
-        description:data.lectureDesc,
-        video:data.lectureVideo
-    }
+    // const formData = {
+    //     sectionId:modalData,
+    //     title:data.lectureTitle,
+    //     description:data.lectureDesc,
+    //     video:data.lectureVideo
+    // }
+    const formData = new FormData({});
+    formData.append("sectionId", modalData)
+    formData.append("title", data.lectureTitle)
+    formData.append("description", data.lectureDesc)
+    formData.append("video", data.lectureVideo)
 
-    // console.log("modalData = ",modalData)
-    // console.log(data.lectureTitle,data.lectureDesc,data.lectureVideo);
-
-    // formData.append("sectionId", modalData)
-    // formData.append("title", data.lectureTitle)
-    // formData.append("description", data.lectureDesc)
-    // formData.append("video", data.lectureVideo)
 
     console.log("SENDING DATA ON SUBSECTION ......",formData);
+    // console.log("SENDING DATA ON SUBSECTION ......",formData.video);
 
 
 

@@ -7,12 +7,14 @@ const {uploadImageCloudinary} = require('../utils/imageUploader')
 exports.createSubSection = async(req,res) =>{
     try {
         // Fetch Data
+        
         console.log("CREATING SubSection .....");
-        const {modalData , title, description , timeDuration = '6:30' , video} = req.body;
-        const sectionId = modalData;
-        // console.log("REQ ................................",req?.files);
+        console.log(req.body);
+        const {sectionId , title, description , timeDuration = '6:30',video } = req.body;
+        console.log("VIDEO ...",video);
         // Fetch video / file
-        // const video = req?.files?.videoFile;
+        // const video = req?.files?.video;
+        // console.log("req.files.vide",req?.files?.video);
         // validation
         
         if( !title ||  !description){
@@ -43,6 +45,13 @@ exports.createSubSection = async(req,res) =>{
         console.log("UPLOADING CLOUDINARY......")
         // upload video to cloudinary
         const uploadDetails = await uploadImageCloudinary(video , process.env.FOLDER_NAME);
+        console.log(uploadDetails?.secure_url);
+        if(!uploadDetails){
+            return res.status(500).json({
+                sucess:false,
+                message:"cloudinary se response nhi aaya ",
+            })
+        }
         console.log("UPLOADING CLOUDINARY SUCCESSFULLY ......")
 
         // create subsection
