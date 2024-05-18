@@ -9,15 +9,19 @@ exports.createSubSection = async(req,res) =>{
         // Fetch Data
         
         console.log("CREATING SubSection .....");
-        console.log(req.body);
-        const {sectionId , title, description , timeDuration = '6:30',video } = req.body;
-        console.log("VIDEO ...",video);
+        console.log("REQ BODY ..",req.body);
+        console.log("REQ FILES -> ",req.files.video);
+        const {sectionId , title, description , timeDuration = '6:30'} = req.body;
+        // console.log("VIDEO ...",video);
         // Fetch video / file
-        // const video = req?.files?.video;
+        // if(!video)
+        // console.log("REQ --> ",req)
+        const video = await req.files.video;
         // console.log("req.files.vide",req?.files?.video);
         // validation
         
         if( !title ||  !description){
+            console.log("TITLE = ",title,"DESCRIPTION = ",description)
             return res.status(400).json({
                 success:false,
                 message:"Incomplete Data, Title or Description is missing ",
@@ -25,18 +29,21 @@ exports.createSubSection = async(req,res) =>{
         }
 
         if(!sectionId  ){
+            console.log("SECTION ID = ",sectionId)
             return res.status(400).json({
                 success:false,
                 message:"Incomplete Data, Section Id is missing ",
             })
         }
         else if(!timeDuration){
+            console.log("TIMEDURATION = ",timeDuration)
             return res.status(400).json({
                 success:false,
                 message:"Incomplete Data, TimeDuration is missing ",
             })
         }
         else if(!video){
+            console.log("VIDEO = ",video)
             return res.status(400).json({
                 success:false,
                 message:"Incomplete Data, Video  is missing ",
@@ -45,7 +52,7 @@ exports.createSubSection = async(req,res) =>{
         console.log("UPLOADING CLOUDINARY......")
         // upload video to cloudinary
         const uploadDetails = await uploadImageCloudinary(video , process.env.FOLDER_NAME);
-        console.log(uploadDetails?.secure_url);
+        console.log("UPLOAD DETAILS....",uploadDetails?.secure_url);
         if(!uploadDetails){
             return res.status(500).json({
                 sucess:false,

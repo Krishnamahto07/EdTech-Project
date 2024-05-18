@@ -185,7 +185,7 @@
 
 
 import { useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
+import { Form, useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import { RxCross2 } from "react-icons/rx"
 import { useDispatch, useSelector } from "react-redux"
@@ -205,6 +205,7 @@ export default function SubSectionModal({
   view = false,
   edit = false,
 }) {
+  
   const {
     register,
     handleSubmit,
@@ -279,6 +280,7 @@ export default function SubSectionModal({
   }
 
   const onSubmit = async (data) => {
+
     if (view) return
 
     if (edit) {
@@ -297,20 +299,26 @@ export default function SubSectionModal({
     //     description:data.lectureDesc,
     //     video:data.lectureVideo
     // }
-    const formData = new FormData({});
-    formData.append("sectionId", modalData)
-    formData.append("title", data.lectureTitle)
-    formData.append("description", data.lectureDesc)
-    formData.append("video", data.lectureVideo)
+    const currentValues = getValues()
+    const formData = new FormData();
+    formData.append("username", "Chris");
+    formData.append("sectionId",modalData)
+    formData.append("title",data.lectureTitle)
+    formData.append("description",data.lectureDesc)
+    formData.append("video",data.lectureVideo)
 
-
-    console.log("SENDING DATA ON SUBSECTION ......",formData);
     // console.log("SENDING DATA ON SUBSECTION ......",formData.video);
 
 
 
     setLoading(true)
     // ---------------------------------------------------eroor
+    console.log("these are the data sending from the subSectionModal to createSubSection..",formData);
+    // for (const pair of formData.entries()) {
+    //   console.log(pair[0], pair[1]);
+    // }
+
+    
     const result = await createSubSection(formData, token)
     
     console.log("RESULT AFTER SUBMIT DATA IN SUBSECTION FRONTEND ..",result);

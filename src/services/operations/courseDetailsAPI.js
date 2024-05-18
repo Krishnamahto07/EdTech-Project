@@ -159,6 +159,8 @@ export const createSection = async (data, token) => {
 
 // create a subsection
 export const createSubSection = async (data, token) => {
+  console.log("IN CREATE SUBSECTION API....")
+  console.log("DATA -> ",data);
   let result = null
   const toastId = toast.loading("Loading...")
   try {
