@@ -89,6 +89,7 @@ const CourseBuilderForm = () => {
         <div>
           <label htmlFor='sectionName'>Section Name <sup>*</sup></label>
           <input
+            autoFocus
             id='sectionName'
             placeholder='Add section name ...'
             {...register("sectionName",{required:true})}

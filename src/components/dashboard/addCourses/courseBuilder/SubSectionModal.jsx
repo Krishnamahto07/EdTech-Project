@@ -1,191 +1,5 @@
-// import React,{useEffect, useState} from 'react'
-// import toast from 'react-hot-toast';
-// import { useDispatch ,useSelector} from 'react-redux';
-// import { createSubSection, updateSubSection } from '../../../../services/operations/courseDetailsAPI';
-// import { setCourse } from '../../../../redux/slices/courseSlice';
-// import {RxCross1} from "react-icons/rx"
-// import IconBtn from '../../../common/IconBtn';
-// import Upload from '../Upload';
-
-// const SubSectionModal = ({
-//         modalData,
-//         setModalData,
-//         add = false,
-//         view = false,
-//         edit = false,
-//     }) => 
-//     {
-//     const {
-//         register,
-//         handleSubmit,
-//         setValue,
-//         formState: { errors },
-//         getValues,
-//       } = useForm();
-
-//         const dispatch = useDispatch();
-//         const [loading, setLoading] = useState(false)
-//         const { token } = useSelector((state) => state.auth)
-//         const { course } = useSelector((state) => state.course)
-
-//         useEffect(()=>{
-//             if (view || edit) {
-//                 // console.log("modalData", modalData)
-//                 setValue("lectureTitle", modalData.title)
-//                 setValue("lectureDesc", modalData.description)
-//                 setValue("lectureVideo", modalData.videoUrl)
-//               }
-//         },[]);
-
-//   // detect whether form is updated or not
-//         const isFormUpdated = () => {
-//             const currentValues = getValues()
-//             // console.log("changes after editing form values:", currentValues)
-//             if (
-//             currentValues.lectureTitle !== modalData.title ||
-//             currentValues.lectureDesc !== modalData.description ||
-//             currentValues.lectureVideo !== modalData.videoUrl
-//             ) {
-//             return true;
-//             }
-//             return false;
-//         }
-//         const handleEditSubsection = async() =>{
-//             const currentValues = getValues()
-//             // console.log("changes after editing form values:", currentValues)
-//             const formData = new FormData()
-//             // console.log("Values After Editing form values:", currentValues)
-//             formData.append("sectionId", modalData.sectionId)
-//             formData.append("subSectionId", modalData._id)
-//             if (currentValues.lectureTitle !== modalData.title) {
-//               formData.append("title", currentValues.lectureTitle)
-//             }
-//             if (currentValues.lectureDesc !== modalData.description) {
-//               formData.append("description", currentValues.lectureDesc)
-//             }
-//             if (currentValues.lectureVideo !== modalData.videoUrl) {
-//               formData.append("video", currentValues.lectureVideo)
-//             }
-//             setLoading(true)
-//             const result = await updateSubSection(formData, token)
-//             if (result) {
-//               // console.log("result", result)
-//               // update the structure of course
-//             //    Uncomment .......
-//             //   const updatedCourseContent = course.courseContent.map((section) =>
-//             //     section._id === modalData.sectionId ? result : section
-//             //   )
-//             //   const updatedCourse = { ...course, courseContent: updatedCourseContent }
-//               dispatch(setCourse(result))
-//             }
-//             setModalData(null)
-//             setLoading(false)            
-//         }
-
-//         const onSubmit = async (data) => {
-//             // console.log(data)
-//             if (view) return
-        
-//             if (edit) {
-//               if (!isFormUpdated()) {
-//                 toast.error("No changes made to the form")
-//               } else {
-//                 handleEditSubsection();
-//               }
-//               return
-//             }
-
-//             const formData = new FormData();
-//             formData.append("sectionId", modalData)
-//             formData.append("title", data.lectureTitle)
-//             formData.append("description", data.lectureDesc)
-//             formData.append("video", data.lectureVideo)
-//             setLoading(true)
-    
-//             //  CALL API
-//             const result = await createSubSection(formData,token);
-//             if(result){
-//                 dispatch(setCourse(result));
-//                 console.log("RESULT IN SUBSECTION ...",result)
-//             }
-//             setModalData(null)
-//             setLoading(false)
-//         }
-
-
-//     return (
-//         <div>
-//             <div>
-//                 <div>
-//                     <p>{view && "viewing"} {add && "Adding"} {edit && "Editing"} Lecture</p>
-//                     <button onClick={() => (!loading ? setModalData(null) : {})}>
-//                         <RxCross1/>
-//                     </button>
-//                 </div>
-//                 <form onSubmit={handleSubmit(onSubmit)}>
-//                 {/* Lecture Video Upload */}
-//                 <Upload
-//                     name="lectureVideo"
-//                     label="Lecture Video"
-//                     register={register}
-//                     setValue={setValue}
-//                     errors={errors}
-//                     video={true}
-//                     viewData={view ? modalData.videoUrl : null}
-//                     editData={edit ? modalData.videoUrl : null}
-//                 />
-//                 <div>
-//                     <label>Lecture Title</label>
-//                     <input 
-//                        id='lectureTitle'
-//                        placeholder='Enter Lecture Title'
-//                        {...register("lectureTitle",{required:true})}
-//                        className='w-full text-black' 
-//                     />
-//                     {
-//                         errors.lectureTitle && (<span>
-//                             Lecture Title is required
-//                         </span>)
-//                     }
-//                 </div>
-//                 <div>
-//                     <label>
-//                         Lecture Description
-//                     </label>
-//                     <textarea
-//                         // disabled={view || loading}
-//                         id="lectureDesc"
-//                         placeholder="Enter Lecture Description"
-//                         {...register("lectureDesc", { required: true })}
-//                         className="form-style resize-x-none min-h-[130px] w-full text-black"
-//                     />
-//                     {
-//                         errors.lectureDesc && ( <span>
-//                             Lecture Description is required
-//                         </span>)
-//                     }
-//                 </div>
-//                 {
-//                     !view && (
-//                         <div>
-//                             <IconBtn 
-//                                 text={loading ? "Loading...":edit ? "Save Changes":"Save"}
-//                             />
-//                         </div>
-//                     )
-//                 }
-//                 </form>
-//             </div>
-        
-//         </div>
-//     )
-// }
-
-// export default SubSectionModal;
-
-
 import { useEffect, useState } from "react"
-import { Form, useForm } from "react-hook-form"
+import {useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import { RxCross2 } from "react-icons/rx"
 import { useDispatch, useSelector } from "react-redux"
@@ -214,10 +28,6 @@ export default function SubSectionModal({
     getValues,
   } = useForm();
 
-  // console.log("view", view)
-  // console.log("edit", edit)
-  // console.log("add", add)
-
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const { token } = useSelector((state) => state.auth)
@@ -225,10 +35,10 @@ export default function SubSectionModal({
 
   useEffect(() => {
     if (view || edit) {
-      // console.log("modalData", modalData)
       setValue("lectureTitle", modalData.title)
       setValue("lectureDesc", modalData.description)
       setValue("lectureVideo", modalData.videoUrl)
+      console.log("Modal Data : ",modalData);
     }
   }, [])
 
@@ -249,9 +59,7 @@ export default function SubSectionModal({
   // handle the editing of subsection
   const handleEditSubsection = async () => {
     const currentValues = getValues()
-    // console.log("changes after editing form values:", currentValues)
     const formData = new FormData()
-    // console.log("Values After Editing form values:", currentValues)
     formData.append("sectionId", modalData.sectionId)
     formData.append("subSectionId", modalData._id)
     if (currentValues.lectureTitle !== modalData.title) {
@@ -267,19 +75,22 @@ export default function SubSectionModal({
     const result = await updateSubSection(formData, token)
 
     if (result) {
-    //   console.log("result updatesubsection  : ", result)
+      
+      console.log("Result ",result)
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>
         section._id === modalData.sectionId ? result : section
-      )
+      ) 
       const updatedCourse = { ...course, courseContent: updatedCourseContent }
       dispatch(setCourse(updatedCourse))
     }
+    console.log("Result not found ",result);
     setModalData(null)
     setLoading(false)
   }
 
   const onSubmit = async (data) => {
+    console.log("DATA in sebsection ",data);
 
     if (view) return
 
@@ -292,36 +103,18 @@ export default function SubSectionModal({
       return
     }
 
-    // const formData = new FormData();
-    // const formData = {
-    //     sectionId:modalData,
-    //     title:data.lectureTitle,
-    //     description:data.lectureDesc,
-    //     video:data.lectureVideo
-    // }
-    const currentValues = getValues()
+    
+    // const currentValues = getValues()
     const formData = new FormData();
-    formData.append("username", "Chris");
     formData.append("sectionId",modalData)
     formData.append("title",data.lectureTitle)
     formData.append("description",data.lectureDesc)
     formData.append("video",data.lectureVideo)
-
-    // console.log("SENDING DATA ON SUBSECTION ......",formData.video);
-
-
-
     setLoading(true)
-    // ---------------------------------------------------eroor
-    console.log("these are the data sending from the subSectionModal to createSubSection..",formData);
-    // for (const pair of formData.entries()) {
-    //   console.log(pair[0], pair[1]);
-    // }
-
-    
+    // console.log("these are the data sending from the subSectionModal to createSubSection..",formData);
     const result = await createSubSection(formData, token)
     
-    console.log("RESULT AFTER SUBMIT DATA IN SUBSECTION FRONTEND ..",result);
+    // console.log("RESULT AFTER SUBMIT DATA IN SUBSECTION FRONTEND ..",result);
     if (result) {
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>
@@ -374,7 +167,7 @@ export default function SubSectionModal({
               id="lectureTitle"
               placeholder="Enter Lecture Title"
               {...register("lectureTitle", { required: true })}
-              className="form-style w-full"
+              className="form-style w-full text-richblack-800"
             />
             {errors.lectureTitle && (
               <span className="ml-2 text-xs tracking-wide text-pink-200">
@@ -393,7 +186,7 @@ export default function SubSectionModal({
               id="lectureDesc"
               placeholder="Enter Lecture Description"
               {...register("lectureDesc", { required: true })}
-              className="form-style resize-x-none min-h-[130px] w-full"
+              className="form-style resize-x-none min-h-[130px] w-full text-richblack-900"
             />
             {errors.lectureDesc && (
               <span className="ml-2 text-xs tracking-wide text-pink-200">

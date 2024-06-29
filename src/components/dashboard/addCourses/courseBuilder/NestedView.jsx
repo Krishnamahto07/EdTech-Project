@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RxDropdownMenu } from "react-icons/rx"
-// import { AiFillCaretDown } from "react-icons/ai"
+import ConfirmationModal from '../../../common/ConfirmationModal'
 import { FaPlus } from "react-icons/fa"
 import { MdEdit } from "react-icons/md"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import {BiDownArrow} from "react-icons/bi"
 import SubSectionModal from './SubSectionModal'
+
 import { deleteSection, deleteSubSection } from '../../../../services/operations/courseDetailsAPI'
 import { setCourse } from '../../../../redux/slices/courseSlice'
 
@@ -28,6 +29,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
         token,
       }
     );
+    console.log("PRINTING AFTER DELETE SECTION...", result);
     if(result){
       dispatch(setCourse(result))
     }
@@ -44,6 +46,13 @@ const NestedView = ({handleChangeEditSectionName}) => {
     );
 
     if(result){
+      
+      const updatedCourseContent = course.courseContent.map((section)=> 
+        section._id === sectionId ? result : section);
+      
+      const updatedCourse = {...course, courseContent:updatedCourseContent};
+      
+      dispatch(setCourse(updatedCourse));
       dispatch(setCourse(result))
     }
     setConfirmationModal(null);
@@ -55,7 +64,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
       <p>Nested view </p>
       <div  className="rounded-lg bg-richblack-700 p-6 px-8">
         {
-          course?.courseContent?.map((section,index) => (
+          course?.courseContent?.map((section) => (
             <details key={section._id} open>
               <summary className="flex cursor-pointer items-center justify-between border-b-2 border-b-richblack-600 py-2">
                 <div className="flex items-center gap-x-3">
@@ -91,25 +100,28 @@ const NestedView = ({handleChangeEditSectionName}) => {
 
               <div>
                 {
-                  section?.subSection?.map((data) =>(
-                    <div key={data?._id}
+                  section?.subSection?.map((data,i) =>(
+
+                    <div key={i}
                     onClick={()=> setViewSubSection(data)}
                     className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-b-richblack-600 py-2"
 
                     >
                       <div className="flex items-center gap-x-3">
                         <RxDropdownMenu />
+                        {/* <p>{data}</p> */}
                         <p>{data.title}</p>
                       </div>
 
-                      <div className='flex items-center gap-x-3'>
+                      <div className='flex items-center gap-x-3'
+                        onClick={(e)=>e.stopPropagation()}>
                         <button 
                         onClick={()=> setEditSubSection({...data, sectionId : section._id})} 
                         >
                           <MdEdit/>
                         </button>
 
-                        <button
+                        <button 
                           onClick={() =>
                             setConfirmationModal({
                               text1: "Delete this Sub-Section?",
@@ -152,7 +164,7 @@ const NestedView = ({handleChangeEditSectionName}) => {
       }
 
       {
-        confirmationModal ? (<confirmationModal modalData = {confirmationModal} />)
+        confirmationModal ? (<ConfirmationModal modalData = {confirmationModal} />)
         :(<div></div>)
       }
     </div>
