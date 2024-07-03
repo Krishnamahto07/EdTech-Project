@@ -7,7 +7,7 @@ const IconBtn = ({
     type,
 }) => {
   return (
-    <button className={`${customClasses}` +`  text-richblack-800 bg-blue-100 px-3 py-2 rounded hover:scale-95 drop-shadow-xl duration-200 ease-linear`}
+    <button className={`${customClasses}` +` flex justify-center items-center gap-2  font-semibold  text-richblack-800 bg-blue-100 md:px-3 py-1 px-1  md:py-2 rounded hover:scale-95 drop-shadow-xl duration-200 ease-linear`}
     disabled={disabled}
     onClick={onclick}
     type={type}

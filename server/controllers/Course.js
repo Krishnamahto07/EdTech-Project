@@ -318,6 +318,7 @@ exports.createCourse = async (req, res) => {
 // Edit Course Details
 exports.editCourse = async (req, res) => {
   try {
+    console.log("CALLED EDIT COURSE API")
     const { courseId } = req.body
     const updates = req.body
     const course = await Course.findById(courseId)
