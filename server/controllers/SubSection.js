@@ -9,15 +9,12 @@ exports.createSubSection = async(req,res) =>{
         // Fetch Data
         
         console.log("CREATING SubSection .....");
-        // console.log("REQ BODY ..",req.body);
-        // console.log("REQ FILES -> ",req.files.video);
+
         const {sectionId , title, description } = req.body;
         const video = await req.files.video;
-        // console.log("req.files.vide",req?.files?.video);
-        // validation
+
         
         if( !title ||  !description){
-            console.log("TITLE = ",title,"DESCRIPTION = ",description)
             return res.status(400).json({
                 success:false,
                 message:"Incomplete Data, Title or Description is missing ",
@@ -25,41 +22,27 @@ exports.createSubSection = async(req,res) =>{
         }
 
         if(!sectionId  ){
-            console.log("SECTION ID = ",sectionId)
             return res.status(400).json({
                 success:false,
                 message:"Incomplete Data, Section Id is missing ",
             })
         }
-        // else if(!timeDuration){
-        //     console.log("TIMEDURATION = ",timeDuration)
-        //     return res.status(400).json({
-        //         success:false,
-        //         message:"Incomplete Data, TimeDuration is missing ",
-        //     })
-        // }
+
         else if(!video){
-            console.log("VIDEO = ",video)
             return res.status(400).json({
                 success:false,
                 message:"Incomplete Data, Video  is missing ",
             })
         }
-        // console.log("UPLOADING CLOUDINARY......")
         // upload video to cloudinary
         const uploadDetails = await uploadImageCloudinary(video , process.env.FOLDER_NAME);
-        // console.log("UPLOAD DETAILS....",uploadDetails?.secure_url);
         if(!uploadDetails){
             return res.status(500).json({
                 sucess:false,
                 message:"cloudinary se response nhi aaya ",
             })
         }
-        // console.log("UPLOADING CLOUDINARY SUCCESSFULLY ......")
 
-        // create subsection
-        // console.log("CREATING SUBSECTION ......")
-        // console.log("DATA in CREATE SUBSECTION :",title,description,uploadDetails.secure_url);
         const subSectionDetails = await SubSection.create({
             title:title,
             timeDuration: `${uploadDetails.duration}`,

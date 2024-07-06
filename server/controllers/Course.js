@@ -214,8 +214,7 @@ exports.createCourse = async (req, res) => {
     const tag = JSON.parse(_tag)
     const instructions = JSON.parse(_instructions)
 
-    console.log("tag", tag)
-    console.log("instructions", instructions)
+   
 
     // Check if any of the required fields are missing
     if (
@@ -298,7 +297,6 @@ exports.createCourse = async (req, res) => {
       },
       { new: true }
     )
-    console.log("HEREEEEEEEE", categoryDetails2)
     // Return the new course and a success message
     res.status(200).json({
       success: true,
@@ -580,13 +578,14 @@ exports.deleteCourse = async (req, res) => {
 
     // Find the course
     const course = await Course.findById(courseId)
+
     if (!course) {
       return res.status(404).json({ message: "Course not found" })
     }
-
     // Unenroll students from the course
-    const studentsEnrolled = course.studentsEnroled
-    for (const studentId of studentsEnrolled) {
+    const studentsEnrolled = course.studentEnrolled
+     
+      for (const studentId of studentsEnrolled) {
       await User.findByIdAndUpdate(studentId, {
         $pull: { courses: courseId },
       })
