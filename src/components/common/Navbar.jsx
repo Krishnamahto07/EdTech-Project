@@ -35,24 +35,49 @@ const Navbar = () => {
     const {token} = useSelector((state) => state.auth);
     const {user} = useSelector((state) => state.profile);
     const {totalItems} = useSelector((state) => state.cart);
-
     const location = useLocation();
+
     const matchRoute = (route) => {
         return matchPath({path:route} , location.pathname);
     }
-    const [sublinks, setSublinks] = useState([]);
+    const [subLinks, setSubLinks] = useState([]);
+    const [loading ,setLoading] = useState(false)
 
-    const fetchCatalog = async()=>{
-        try {
-            let result = await apiConnector("GET",categories.CATEGORIES_API);
-            setSublinks(result?.data.data);
-        } catch (error) {
-            console.log(error);
-        }
-    }
     useEffect(()=>{
-        fetchCatalog();
+        
+        ;(async()=>{
+            setLoading(true);
+            try {
+                const res = await apiConnector("GET",categories.CATEGORIES_API)
+                setSubLinks(res?.data.data)
+            } catch (error) {
+                console.log("Could not Fetch Categories",error);   
+            }
+            setLoading(false);
+            console.log(subLinks)
+        })()
     },[])
+
+
+
+
+
+
+
+
+
+    // const fetchCatalog = async()=>{
+    //     try {
+    //         let result = await apiConnector("GET",categories.CATEGORIES_API);
+    //         setSublinks(result?.data.data);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+    // useEffect(()=>{
+    //     fetchCatalog();
+    // },[])
+
 
   return (
     <div className='flex h-14 item-center justify-center border-b-[1px] border-b-richblack-700 '>
@@ -84,13 +109,48 @@ const Navbar = () => {
                                                 group-hover:visible opacity-0 group-hover:opacity-100
                                                 transition-all duration-200'>
                                                 </div>
+                                                {/* {
+                                                    loading ? (
+                                                        <p className='text-center'>Loading...</p>
+                                                    ):
+                                                    subLinks.length ?(
+                                                        <>
+                                                        {
+                                                            subLinks?.filter((subLink)=>subLink?.length > 0)?.map((subLink,i) => (
+                                                                <Link to={`/catalog/${subLink.name.split(" ").join("-").toLowerCase()}`}
+                                                                className='rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50'
+                                                                key={i}>
+                                                                    <p>{subLink.name}</p>
+                                                                </Link>
+                                                            ))
+                                                        }
+                                                        </>
+                                                    ):(<p className='text-center'>No Courses Found</p>)
+                                                } */}
+                                                
                                                 {
-                                                    sublinks.map((sublink,index) => (
+                                                    loading ? 
+                                                    (<p className='text-center  text-blue-300'>Loading...</p>)
+                                                    :subLinks.length ? (
+                                                        <>
+                                                            {
+                                                                subLinks?.map((sublink,i)=>(
+                                                                    <Link to={`/catalog/${sublink.name.split(" ").join("-").toLowerCase()}`}
+                                                                    key={i} className='rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50'>
+                                                                        <p>{sublink.name}</p>
+                                                                    </Link>
+                                                                ))
+                                                            }
+                                                        </>
+                                                    ):(<p className='text-center text-blue-300'>No Courses Found</p>)
+                                                }
+                                                {/* {
+                                                    subLinks.map((sublink,index) => (
                                                         <Link to={`${sublink.link}`} key={index}>
                                                             {sublink.name}
                                                         </Link>
                                                     ))
-                                                }
+                                                } */}
 
                                             </div>
                                         </div>

@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux';
 import AddCourses from './components/dashboard/addCourses/index';
 import MyCourses from './components/dashboard/addCourses/MyCourses';
 import EditCourse from './components/dashboard/editCourse/index';
+import Catalog from './components/Pages/Catalog';
 
 // require('dotenv').config();
 
@@ -33,6 +34,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home/>} />
+        <Route path='catalog/:catalogName' element={<Catalog/>} />
+
         <Route path='/login' element={<OpenRoute><Login/></OpenRoute>}/>
         <Route path='/signup' element={<OpenRoute><SignupForm/></OpenRoute>}/>
         {/* <Route path='/logout' element={<Logout/>}/> */}
