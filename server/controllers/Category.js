@@ -82,7 +82,7 @@ exports.categoryPageDetails = async(req,res) =>{
             populate:"ratingAndReviews",
         }).exec()
 
-        console.log('SELECTED COURSE',selectedCategory)
+        // console.log('SELECTED COURSE',selectedCategory)
         // Validation
         if(!selectedCategory){
             console.log('Category not found')
@@ -103,7 +103,7 @@ exports.categoryPageDetails = async(req,res) =>{
         const categoriesExceptSelected = await Category.find({
             _id:{ $ne : categoryId},
         })
-        console.log("CATEGORIES EXCEPT SELECTED -> ",categoriesExceptSelected);
+        // console.log("CATEGORIES EXCEPT SELECTED -> ",categoriesExceptSelected);
 
 
         // let differentCategory = await Category.findOne(
@@ -127,7 +127,7 @@ exports.categoryPageDetails = async(req,res) =>{
 
         const allCourses = allCategories.flatMap((category) => category.courses)
         const mostSellingCourses = allCourses.sort((a,b) => b.sold - a.sold).splice(0,10)
-        console.log("MostSelling Courses",mostSellingCourses);
+        // console.log("MostSelling Courses",mostSellingCourses);
 
         // get Courses for diffent categories
         const differentCategories = await Category.find(
@@ -136,7 +136,7 @@ exports.categoryPageDetails = async(req,res) =>{
             }
         ).populate("courses")
         .exec();
-
+        console.log("CategoryPageDetails Excuted Successfull .....")
         // return response
         return res.status(200).json({
             success:true,
