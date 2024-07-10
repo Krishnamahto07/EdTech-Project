@@ -49,7 +49,7 @@ exports.showAllCategories = async(req,res) =>{
             name:true,desciption:true
         });
         // console.log(allTags);
-        console.log('SUCCESSFULLY CALLED SHOWALLCATEGORIES .....')
+        // console.log('SUCCESSFULLY CALLED SHOWALLCATEGORIES .....')
         return res.status(200).json({
             success:true,
             message:"Get All Categories Successfull",
@@ -68,9 +68,9 @@ exports.showAllCategories = async(req,res) =>{
 exports.categoryPageDetails = async(req,res) =>{
     try {
         // get categoryId
-        console.log('CALLING CATEGORYPAGEDETAILS....')
+        // console.log('CALLING CATEGORYPAGEDETAILS....')
         const {categoryId} = req.body;
-        console.log("CATEGORY ID : ",categoryId)
+        // console.log("CATEGORY ID : ",categoryId)
         // Get courses for specified category
         // const selectedCategory = await Category.findById(categoryId)
         // .populate("courses")
@@ -136,7 +136,7 @@ exports.categoryPageDetails = async(req,res) =>{
             }
         ).populate("courses")
         .exec();
-        console.log("CategoryPageDetails Excuted Successfull .....")
+        // console.log("CategoryPageDetails Excuted Successfull .....")
         // return response
         return res.status(200).json({
             success:true,

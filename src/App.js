@@ -24,6 +24,7 @@ import AddCourses from './components/dashboard/addCourses/index';
 import MyCourses from './components/dashboard/addCourses/MyCourses';
 import EditCourse from './components/dashboard/editCourse/index';
 import Catalog from './components/Pages/Catalog';
+import CourseDetails from './components/Pages/CourseDetails';
 
 // require('dotenv').config();
 
@@ -35,6 +36,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='catalog/:catalogName' element={<Catalog/>} />
+        <Route path='courses/:courseId' element={<CourseDetails/>} />
+
 
         <Route path='/login' element={<OpenRoute><Login/></OpenRoute>}/>
         <Route path='/signup' element={<OpenRoute><SignupForm/></OpenRoute>}/>

@@ -13,7 +13,7 @@ const Course_Card = ({course,Height}) => {
     },[course])
   return (
     <div className='bg-richblack-100 p-3  transition-all duration-300 ease-linear hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] '>
-        <Link to={`course/${Height}`}>
+        <Link  to={`/courses/${course._id}`}>
             <div>
                 <div className="rounded-lg">
                     <img 
